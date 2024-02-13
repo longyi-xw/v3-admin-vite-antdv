@@ -64,21 +64,21 @@ const handleContentLargeClick = () => {
 <template>
   <div>
     <!-- 全屏 -->
-    <el-tooltip v-if="!content" effect="dark" :content="fullscreenTips" placement="bottom">
+    <a-tooltip v-if="!content" :title="fullscreenTips" placement="bottom">
       <SvgIcon :name="fullscreenSvgName" @click="handleFullscreenClick" />
-    </el-tooltip>
+    </a-tooltip>
     <!-- 内容区 -->
-    <el-dropdown v-else>
+    <a-dropdown v-else>
       <SvgIcon :name="contentLargeSvgName" />
-      <template #dropdown>
-        <el-dropdown-menu>
+      <template #overlay>
+        <a-menu>
           <!-- 内容区放大 -->
-          <el-dropdown-item @click="handleContentLargeClick">{{ contentLargeTips }}</el-dropdown-item>
+          <a-menu-item @click="handleContentLargeClick">{{ contentLargeTips }}</a-menu-item>
           <!-- 内容区全屏 -->
-          <el-dropdown-item @click="handleFullscreenClick" :disabled="isFullscreen">内容区全屏</el-dropdown-item>
-        </el-dropdown-menu>
+          <a-menu-item @click="handleFullscreenClick" :disabled="isFullscreen">内容区全屏</a-menu-item>
+        </a-menu>
       </template>
-    </el-dropdown>
+    </a-dropdown>
   </div>
 </template>
 

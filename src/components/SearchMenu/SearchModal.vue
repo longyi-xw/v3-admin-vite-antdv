@@ -165,19 +165,18 @@ const handleReleaseUpOrDown = () => {
 </script>
 
 <template>
-  <el-dialog
-    v-model="modalVisible"
+  <a-modal
+    v-model:open="modalVisible"
     @opened="inputRef?.focus()"
-    @closed="inputRef?.blur()"
+    @cancel="inputRef?.blur()"
     @keydown.up="handleUp"
     @keydown.down="handleDown"
     @keydown.enter="handleEnter"
     @keyup.up.down="handleReleaseUpOrDown"
-    :before-close="handleClose"
+    :afterClose="handleClose"
     :width="modalWidth"
-    top="5vh"
+    :closable="false"
     class="search-modal__private"
-    append-to-body
   >
     <a-input
       ref="inputRef"
@@ -191,7 +190,7 @@ const handleReleaseUpOrDown = () => {
         <SvgIcon name="search" />
       </template>
     </a-input>
-    <el-empty v-if="resultList.length === 0" description="暂无搜索结果" :image-size="100" />
+    <a-empty v-if="resultList.length === 0" description="暂无搜索结果" />
     <template v-else>
       <p>搜索结果</p>
       <el-scrollbar ref="scrollbarRef" max-height="40vh" always>
@@ -207,7 +206,7 @@ const handleReleaseUpOrDown = () => {
     <template #footer>
       <SearchFooter :total="resultList.length" />
     </template>
-  </el-dialog>
+  </a-modal>
 </template>
 
 <style lang="scss">
@@ -216,13 +215,13 @@ const handleReleaseUpOrDown = () => {
     font-size: 18px;
   }
 
-  .el-dialog__header {
-    display: none;
+  .ant-empty {
+    padding: 40px 0;
   }
 
-  .el-dialog__footer {
+  .ant-modal-footer {
     border-top: 1px solid var(--el-border-color);
-    padding: var(--el-dialog-padding-primary);
+    padding: 16px;
   }
 }
 </style>
