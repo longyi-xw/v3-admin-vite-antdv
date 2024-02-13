@@ -3,7 +3,7 @@ export interface ListItem {
   title: string;
   datetime?: string;
   description?: string;
-  status?: "" | "success" | "info" | "warning" | "danger";
+  status?: "processing" | "success" | "default" | "warning" | "error";
   extra?: string;
 }
 
@@ -49,18 +49,18 @@ export const todoData: ListItem[] = [
     title: "任务名称",
     description: "这家伙很懒，什么都没留下",
     extra: "未开始",
-    status: "info"
+    status: "default"
   },
   {
     title: "任务名称",
     description: "这家伙很懒，什么都没留下",
     extra: "进行中",
-    status: ""
+    status: "processing"
   },
   {
     title: "任务名称",
     description: "这家伙很懒，什么都没留下",
     extra: "已超时",
-    status: "danger"
+    status: "error"
   }
 ];

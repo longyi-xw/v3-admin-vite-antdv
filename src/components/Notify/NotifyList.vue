@@ -10,13 +10,13 @@ const props = defineProps<Props>();
 
 <template>
   <a-empty v-if="props.list.length === 0" />
-  <el-card v-else v-for="(item, index) in props.list" :key="index" shadow="never" class="card-container">
-    <template #header>
+  <a-card v-else v-for="(item, index) in props.list" :key="index" class="card-container">
+    <template #title>
       <div class="card-header">
         <div>
           <span>
-            <span class="card-title">{{ item.title }}</span>
-            <el-tag v-if="item.extra" :type="item.status" effect="plain" size="small">{{ item.extra }}</el-tag>
+            <span class="card-title">{{ item.title }}{{ item.status }}</span>
+            <a-tag v-if="item.extra" :color="item.status" size="small">{{ item.extra }}</a-tag>
           </span>
           <div class="card-time">{{ item.datetime }}</div>
         </div>
@@ -28,29 +28,34 @@ const props = defineProps<Props>();
     <div class="card-body">
       {{ item.description ?? "No Data" }}
     </div>
-  </el-card>
+  </a-card>
 </template>
 
 <style lang="scss" scoped>
 .card-container {
   margin-bottom: 10px;
+
   .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .card-title {
       font-weight: bold;
       margin-right: 10px;
     }
+
     .card-time {
       font-size: 12px;
       color: grey;
     }
+
     .card-avatar {
       display: flex;
       align-items: center;
     }
   }
+
   .card-body {
     font-size: 12px;
   }
