@@ -9,7 +9,7 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <el-empty v-if="props.list.length === 0" />
+  <a-empty v-if="props.list.length === 0" />
   <el-card v-else v-for="(item, index) in props.list" :key="index" shadow="never" class="card-container">
     <template #header>
       <div class="card-header">

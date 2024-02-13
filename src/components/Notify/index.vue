@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, computed } from "vue";
 import { ElMessage } from "element-plus";
-import { Bell } from "@element-plus/icons-vue";
+import { BellOutlined } from "@ant-design/icons-vue";
 import NotifyList from "./NotifyList.vue";
 import { type ListItem, notifyData, messageData, todoData } from "./data";
 
@@ -9,7 +9,7 @@ type TabName = "通知" | "消息" | "待办";
 
 interface DataItem {
   name: TabName;
-  type: "primary" | "success" | "warning" | "danger" | "info";
+  type: "default" | "success" | "warning" | "error" | "processing";
   list: ListItem[];
 }
 
@@ -28,13 +28,13 @@ const data = ref<DataItem[]>([
   // 通知数据
   {
     name: "通知",
-    type: "primary",
+    type: "default",
     list: notifyData
   },
   // 消息数据
   {
     name: "消息",
-    type: "danger",
+    type: "error",
     list: messageData
   },
   // 待办数据
@@ -52,33 +52,30 @@ const handleHistory = () => {
 
 <template>
   <div class="notify">
-    <el-popover placement="bottom" :width="popoverWidth" trigger="click">
-      <template #reference>
-        <el-badge :value="badgeValue" :max="badgeMax" :hidden="badgeValue === 0">
-          <el-tooltip effect="dark" content="消息通知" placement="bottom">
-            <el-icon :size="20">
-              <Bell />
-            </el-icon>
-          </el-tooltip>
-        </el-badge>
-      </template>
-      <template #default>
-        <el-tabs v-model="activeName" class="demo-tabs" stretch>
-          <el-tab-pane v-for="(item, index) in data" :name="item.name" :key="index">
-            <template #label>
-              {{ item.name }}
-              <el-badge :value="item.list.length" :max="badgeMax" :type="item.type" />
+    <a-popover placement="bottomRight" :overlayStyle="{ width: popoverWidth + 'px' }" trigger="click">
+      <a-badge :count="badgeValue" :overflowCount="badgeMax" :showZero="badgeValue !== 0">
+        <a-tooltip effect="dark" title="消息通知" placement="bottom">
+          <BellOutlined :style="{ fontSize: '20px' }" />
+        </a-tooltip>
+      </a-badge>
+      <template #content>
+        <a-tabs v-model="activeName" class="demo-tabs" centered :tabBarGutter="100">
+          <a-tab-pane v-for="(item, index) in data" :key="index">
+            <template #tab>
+              <a-badge :count="item.list.length" :overflowCount="badgeMax" dot :status="item.type">
+                {{ item.name }}
+              </a-badge>
             </template>
             <el-scrollbar height="400px">
               <NotifyList :list="item.list" />
             </el-scrollbar>
-          </el-tab-pane>
-        </el-tabs>
+          </a-tab-pane>
+        </a-tabs>
         <div class="notify-history">
           <a-button type="link" @click="handleHistory">查看{{ activeName }}历史</a-button>
         </div>
       </template>
-    </el-popover>
+    </a-popover>
   </div>
 </template>
 
