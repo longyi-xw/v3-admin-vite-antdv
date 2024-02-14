@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Expand, Fold } from "@element-plus/icons-vue";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
 
 interface Props {
   isActive?: boolean;
@@ -21,10 +21,8 @@ const toggleClick = () => {
 
 <template>
   <div @click="toggleClick">
-    <el-icon :size="20" class="icon">
-      <Fold v-if="props.isActive" />
-      <Expand v-else />
-    </el-icon>
+    <MenuFoldOutlined v-if="props.isActive" />
+    <MenuUnfoldOutlined v-else />
   </div>
 </template>
 

@@ -1,30 +1,31 @@
 <script lang="ts" setup>
-import { useTheme } from "@/hooks/useTheme";
-import { MagicStick } from "@element-plus/icons-vue";
+import { useTheme, ThemeName } from "@/hooks/useTheme";
+import { StarOutlined } from "@ant-design/icons-vue";
 
 const { themeList, activeThemeName, setTheme } = useTheme();
+const handleThemeItemClick = (value: ThemeName) => {
+  setTheme(value);
+};
 </script>
 
 <template>
-  <el-dropdown trigger="click" @command="setTheme">
+  <a-dropdown trigger="click" @command="setTheme">
     <div>
-      <el-tooltip effect="dark" content="主题模式" placement="bottom">
-        <el-icon :size="20">
-          <MagicStick />
-        </el-icon>
-      </el-tooltip>
+      <a-tooltip title="主题模式" placement="bottom">
+        <StarOutlined />
+      </a-tooltip>
     </div>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item
+    <template #overlay>
+      <a-menu>
+        <a-menu-item
           v-for="(theme, index) in themeList"
           :key="index"
           :disabled="activeThemeName === theme.name"
-          :command="theme.name"
+          @click="handleThemeItemClick(theme.name)"
         >
           <span>{{ theme.title }}</span>
-        </el-dropdown-item>
-      </el-dropdown-menu>
+        </a-menu-item>
+      </a-menu>
     </template>
-  </el-dropdown>
+  </a-dropdown>
 </template>

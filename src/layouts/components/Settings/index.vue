@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { watchEffect } from "vue";
+import { watchEffect, h } from "vue";
 import { storeToRefs } from "pinia";
 import { useSettingsStore } from "@/store/modules/settings";
 import { resetConfigLayout } from "@/utils";
 import SelectLayoutMode from "./SelectLayoutMode.vue";
-import { Refresh } from "@element-plus/icons-vue";
+import { SyncOutlined } from "@ant-design/icons-vue";
 
 const settingsStore = useSettingsStore();
 
@@ -51,13 +51,16 @@ watchEffect(() => {
   <div class="setting-container">
     <h4>布局配置</h4>
     <SelectLayoutMode />
-    <el-divider />
+    <a-divider />
     <h4>功能配置</h4>
     <div class="setting-item" v-for="(settingValue, settingName, index) in switchSettings" :key="index">
       <span class="setting-name">{{ settingName }}</span>
-      <el-switch v-model="settingValue.value" :disabled="layoutMode !== 'left' && settingName === '固定 Header'" />
+      <a-switch
+        v-model:checked="settingValue.value"
+        :disabled="layoutMode !== 'left' && settingName === '固定 Header'"
+      />
     </div>
-    <a-button type="danger" :icon="Refresh" @click="resetConfigLayout">重 置</a-button>
+    <a-button type="primary" danger :icon="h(SyncOutlined)" @click="resetConfigLayout">重 置</a-button>
   </div>
 </template>
 
@@ -70,7 +73,7 @@ watchEffect(() => {
   .setting-item {
     font-size: 14px;
     color: var(--el-text-color-regular);
-    padding: 5px 0;
+    padding: 10px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -80,7 +83,7 @@ watchEffect(() => {
     }
   }
 
-  .el-button {
+  .ant-btn {
     margin-top: 40px;
     width: 100%;
   }

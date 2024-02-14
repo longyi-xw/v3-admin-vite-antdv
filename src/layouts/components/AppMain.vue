@@ -5,6 +5,10 @@ import Footer from "./Footer/index.vue";
 
 const tagsViewStore = useTagsViewStore();
 const settingsStore = useSettingsStore();
+
+const getBackTopTarget = () => {
+  return document.querySelector(".app-scrollbar");
+};
 </script>
 
 <template>
@@ -22,9 +26,9 @@ const settingsStore = useSettingsStore();
       <Footer v-if="settingsStore.showFooter" />
     </div>
     <!-- 返回顶部 -->
-    <el-backtop />
+    <a-back-top />
     <!-- 返回顶部（固定 Header 情况下） -->
-    <el-backtop target=".app-scrollbar" />
+    <a-back-top :target="getBackTopTarget" />
   </section>
 </template>
 
@@ -43,6 +47,7 @@ const settingsStore = useSettingsStore();
   @extend %scrollbar;
   display: flex;
   flex-direction: column;
+
   .app-container-grow {
     flex-grow: 1;
   }

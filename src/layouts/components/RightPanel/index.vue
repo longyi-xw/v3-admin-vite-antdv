@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { Setting } from "@element-plus/icons-vue";
+import { SettingOutlined } from "@ant-design/icons-vue";
 
 interface Props {
   buttonTop?: number;
@@ -16,13 +16,11 @@ const show = ref(false);
 
 <template>
   <div class="handle-button" @click="show = true">
-    <el-icon :size="24">
-      <Setting />
-    </el-icon>
+    <SettingOutlined style="font-size: 22px" />
   </div>
-  <el-drawer v-model="show" size="300px" :with-header="false">
+  <a-drawer v-model:open="show" width="300px" :closable="false">
     <slot />
-  </el-drawer>
+  </a-drawer>
 </template>
 
 <style lang="scss" scoped>
