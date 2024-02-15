@@ -5,7 +5,7 @@ import { useSettingsStore } from "@/store/modules/settings";
 import { useRouteListener } from "@/hooks/useRouteListener";
 import Screenfull from "@/components/Screenfull/index.vue";
 import { ElScrollbar } from "element-plus";
-import { ArrowLeft, ArrowRight } from "@element-plus/icons-vue";
+import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons-vue";
 
 interface Props {
   tagRefs: InstanceType<typeof RouterLink>[];
@@ -103,17 +103,13 @@ listenerRouteChange(() => {
 
 <template>
   <div class="scroll-container">
-    <el-icon class="arrow left" @click="scrollTo('left')">
-      <ArrowLeft />
-    </el-icon>
+    <ArrowLeftOutlined class="arrow left" @click="scrollTo('left')" />
     <el-scrollbar ref="scrollbarRef" @wheel.passive="wheelScroll" @scroll="scroll">
       <div ref="scrollbarContentRef" class="scrollbar-content">
         <slot />
       </div>
     </el-scrollbar>
-    <el-icon class="arrow right" @click="scrollTo('right')">
-      <ArrowRight />
-    </el-icon>
+    <ArrowRightOutlined class="arrow right" @click="scrollTo('right')" />
     <Screenfull v-if="settingsStore.showScreenfull" element=".app-main" :content="true" class="screenfull" />
   </div>
 </template>
@@ -128,6 +124,10 @@ listenerRouteChange(() => {
     width: 40px;
     height: 100%;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     &.left {
       box-shadow: 5px 0 5px -6px #ccc;
     }

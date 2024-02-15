@@ -14,30 +14,34 @@ const isLeftTop = computed(() => layoutMode.value === "left-top");
 
 <template>
   <div class="select-layout-mode">
-    <el-tooltip content="左侧模式">
-      <el-container class="layout-mode left" :class="{ active: isLeft }" @click="layoutMode = 'left'">
-        <el-aside />
-        <el-container>
-          <el-header />
-          <el-main />
-        </el-container>
-      </el-container>
-    </el-tooltip>
-    <el-tooltip content="顶部模式">
-      <el-container class="layout-mode top" :class="{ active: isTop }" @click="layoutMode = 'top'">
-        <el-header />
-        <el-main />
-      </el-container>
-    </el-tooltip>
-    <el-tooltip content="混合模式">
-      <el-container class="layout-mode left-top" :class="{ active: isLeftTop }" @click="layoutMode = 'left-top'">
-        <el-header />
-        <el-container>
-          <el-aside />
-          <el-main />
-        </el-container>
-      </el-container>
-    </el-tooltip>
+    <a-tooltip title="左侧模式">
+      <section class="container layout-mode left" :class="{ active: isLeft }" @click="layoutMode = 'left'">
+        <aside class="layout-aside" />
+        <section class="container is-vertical">
+          <header class="layout-header" />
+          <main class="layout-main" />
+        </section>
+      </section>
+    </a-tooltip>
+    <a-tooltip title="顶部模式">
+      <sectionr class="container layout-mode top is-vertical" :class="{ active: isTop }" @click="layoutMode = 'top'">
+        <header class="layout-header" />
+        <main class="layout-main" />
+      </sectionr>
+    </a-tooltip>
+    <a-tooltip title="混合模式">
+      <section
+        class="container layout-mode left-top is-vertical"
+        :class="{ active: isLeftTop }"
+        @click="layoutMode = 'left-top'"
+      >
+        <header class="layout-header" />
+        <section class="container">
+          <aside class="layout-aside" />
+          <main class="layout-main" />
+        </section>
+      </section>
+    </a-tooltip>
   </div>
 </template>
 
@@ -47,13 +51,23 @@ const isLeftTop = computed(() => layoutMode.value === "left-top");
   justify-content: space-between;
 }
 
+.container {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-basis: auto;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
 .layout-mode {
   width: 60px;
   flex-grow: 0;
   overflow: hidden;
   cursor: pointer;
   border-radius: 6px;
-  border: 2px solid #00000000;
+  border: 2px solid rgba(0, 0, 0, 0);
+
   &:hover {
     border: 2px solid var(--el-color-primary);
   }
@@ -63,43 +77,67 @@ const isLeftTop = computed(() => layoutMode.value === "left-top");
   border: 2px solid var(--el-color-primary);
 }
 
-.el-header {
-  height: 12px;
+.is-vertical {
+  flex-direction: column;
 }
 
-.el-aside {
+.layout-header {
+  height: 12px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.layout-main {
+  display: block;
+  flex: 1;
+  flex-basis: auto;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.layout-aside {
   width: 16px;
+  overflow: auto;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .left {
-  .el-header {
+  .layout-header {
     background-color: var(--el-border-color);
   }
-  .el-aside {
+
+  .layout-aside {
     background-color: var(--el-color-primary);
   }
-  .el-main {
+
+  .layout-main {
     background-color: var(--el-fill-color);
   }
 }
 
 .top {
-  .el-header {
+  .layout-header {
     background-color: var(--el-color-primary);
   }
-  .el-main {
+
+  .layout-main {
     background-color: var(--el-fill-color);
   }
 }
 
 .left-top {
-  .el-header {
+  .layout-header {
     background-color: var(--el-border-color);
   }
-  .el-aside {
+
+  .layout-aside {
     background-color: var(--el-color-primary);
   }
-  .el-main {
+
+  .layout-main {
     background-color: var(--el-fill-color);
   }
 }

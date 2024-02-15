@@ -18,7 +18,7 @@ const show = ref(false);
   <div class="handle-button" @click="show = true">
     <SettingOutlined style="font-size: 22px" />
   </div>
-  <a-drawer v-model:open="show" width="300px" :closable="false">
+  <a-drawer v-model:open="show" width="300px" rootStyle="z-index: 2000" :closable="false">
     <slot />
   </a-drawer>
 </template>

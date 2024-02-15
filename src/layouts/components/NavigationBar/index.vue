@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, h } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useAppStore } from "@/store/modules/app";
 import { useSettingsStore } from "@/store/modules/settings";
 import { useUserStore } from "@/store/modules/user";
-import { UserFilled } from "@element-plus/icons-vue";
+import { UserOutlined } from "@ant-design/icons-vue";
 import Hamburger from "../Hamburger/index.vue";
 import Breadcrumb from "../Breadcrumb/index.vue";
 import Sidebar from "../Sidebar/index.vue";
@@ -51,7 +51,7 @@ const logout = () => {
       <div class="right-menu-item">
         <a-dropdown>
           <div class="right-menu-avatar">
-            <el-avatar :icon="UserFilled" :size="30" />
+            <a-avatar :icon="h(UserOutlined)" :size="30" />
             <span>{{ userStore.username }}</span>
           </div>
           <template #overlay>
@@ -131,7 +131,7 @@ const logout = () => {
         display: flex;
         align-items: center;
 
-        .el-avatar {
+        .ant-avatar {
           margin-right: 10px;
         }
 

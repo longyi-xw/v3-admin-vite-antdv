@@ -20,7 +20,7 @@ defineOptions({
 });
 
 const loading = ref<boolean>(false);
-const { paginationData, handleCurrentChange, handleSizeChange } = usePagination();
+const { paginationData, handlePaginationChange } = usePagination();
 
 //#region 增
 const dialogVisible = ref<boolean>(false);
@@ -175,16 +175,16 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getTabl
           <el-table-column prop="username" label="用户名" align="center" />
           <el-table-column prop="roles" label="角色" align="center">
             <template #default="scope">
-              <el-tag v-if="scope.row.roles === 'admin'" effect="plain">admin</el-tag>
-              <el-tag v-else type="warning" effect="plain">{{ scope.row.roles }}</el-tag>
+              <a-tag v-if="scope.row.roles === 'admin'">admin</a-tag>
+              <a-tag v-else color="warning">{{ scope.row.roles }}</a-tag>
             </template>
           </el-table-column>
           <el-table-column prop="phone" label="手机号" align="center" />
           <el-table-column prop="email" label="邮箱" align="center" />
           <el-table-column prop="status" label="状态" align="center">
             <template #default="scope">
-              <el-tag v-if="scope.row.status" type="success" effect="plain">启用</el-tag>
-              <el-tag v-else type="danger" effect="plain">禁用</el-tag>
+              <a-tag v-if="scope.row.status" color="success" effect="plain">启用</a-tag>
+              <a-tag v-else color="error">禁用</a-tag>
             </template>
           </el-table-column>
           <el-table-column prop="createTime" label="创建时间" align="center" />
@@ -197,16 +197,20 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getTabl
         </el-table>
       </div>
       <div class="pager-wrapper">
-        <el-pagination
-          background
-          :layout="paginationData.layout"
-          :page-sizes="paginationData.pageSizes"
+        <a-pagination
+          :pageSizeOptions="paginationData.pageSizes"
           :total="paginationData.total"
-          :page-size="paginationData.pageSize"
-          :currentPage="paginationData.currentPage"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
+          :show-total="(total: number) => `共 ${total} 条`"
+          v-model:page-size="paginationData.pageSize"
+          v-model:current="paginationData.currentPage"
+          show-size-changer
+          show-quick-jumper
+          @change="handlePaginationChange"
+        >
+          <template #buildOptionText="props">
+            <span>{{ props.value }}条/页</span>
+          </template>
+        </a-pagination>
       </div>
     </a-card>
     <!-- 新增/修改 -->

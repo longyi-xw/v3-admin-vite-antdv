@@ -10,9 +10,9 @@
         src/config/route.ts
       </el-link>
     </h4>
-    <el-card header="二级路由 - menu1">
+    <a-card title="二级路由 - menu1">
       <router-view />
-    </el-card>
+    </a-card>
   </div>
 </template>
 

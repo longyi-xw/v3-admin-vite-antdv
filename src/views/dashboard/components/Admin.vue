@@ -1,6 +1,6 @@
 <template>
   <div class="app-container center">
-    <el-empty description="Admin 权限可见" />
+    <a-empty description="Admin 权限可见" />
   </div>
 </template>
 

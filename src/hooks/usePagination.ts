@@ -36,6 +36,10 @@ export function usePagination(initialPaginationData: PaginationData = {}) {
   const handleSizeChange = (value: number) => {
     paginationData.pageSize = value;
   };
+  const handlePaginationChange = (page: number, pageSize: number) => {
+    handleCurrentChange(page);
+    handleSizeChange(pageSize);
+  };
 
-  return { paginationData, handleCurrentChange, handleSizeChange };
+  return { paginationData, handleCurrentChange, handleSizeChange, handlePaginationChange };
 }
